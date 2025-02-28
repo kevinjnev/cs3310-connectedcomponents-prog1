@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
+
 
 public class test {
     
@@ -8,42 +9,35 @@ public class test {
     public static void main(String[] args) throws Exception {
         
         System.out.println("works");
-        File file = new File("D:/school/CS3310 Project 1/lib/SampleInput.txt");
+        File file = new File("D:/school/CS3310-Project-1/lib/SampleInput.txt");
         
         try (Scanner scanner = new Scanner(file)) {
-            
+            scanner.useDelimiter("\\D");
             int n = 0;
             n = scanner.nextInt();  //takes in the first integer at the start of the line as an int into n, 
             System.out.println(n);  //this will give us the size of the matrix later
-/* 
-            while(scanner.hasNext()) {
-                if(scanner.hasNextInt()) {
-                    n = scanner.nextInt();
-                }
-            }
-*/
+
             int[][] inputarray = new int[n][n];
-            //System.out.println(inputarray);
-            int arraynode1;
-            int arraynode2;
-            String patterntoskip = "\\p{Punct}";
             
+            int arraynode1 = 0;
+            int arraynode2 = 0;
+            
+            int i = 0;
 
             while (scanner.hasNext()) {
-                while (!scanner.hasNextInt() & scanner.hasNext()) {
+                while (!scanner.hasNextInt()) {
                     System.out.print(scanner.next());
                 }
-                
-                arraynode1 = scanner.nextInt();
-                
-                while (!scanner.hasNextInt() & scanner.hasNext()) {
-                    scanner.next();
+                if(i % 2 == 0) {
+                    arraynode1 = scanner.nextInt();
                 }
-                
-                arraynode2 = scanner.nextInt();
-
+                else {
+                    arraynode2 = scanner.nextInt();
+                }
                 inputarray[arraynode1][arraynode2] = 1;
+                i++;
             }
+
             for (int[] x : inputarray) {
                 for (int y : x) {
                     System.out.print(y + " ");
@@ -52,8 +46,8 @@ public class test {
             }
             scanner.close();
         } 
-        catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+        catch (FileNotFoundException err) {
+            System.err.println("File not found: " + err.getMessage());
         }
     
     }
