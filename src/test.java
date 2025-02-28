@@ -38,7 +38,7 @@ class AdjacencyList {
 
     public void createGraph() {
         
-        File file = new File("D:/school/CS3310-Project-1/lib/SampleInput.txt");
+        File file = new File("D:/school/CS3310 Project 1/lib/SampleInput.txt");
 
         try (Scanner scanner = new Scanner(file)) {
             scanner.useDelimiter("\\D");
@@ -50,21 +50,19 @@ class AdjacencyList {
 
             int node1 = 0;
             int node2 = 0;
-            int i = 0;
+            
             while (scanner.hasNext()) {
-                while (!scanner.hasNextInt()) {
-                    System.out.print(scanner.next());
-                }
-                if(i % 2 == 0) {
-                    node1 = scanner.nextInt();
+                if (!scanner.hasNextInt()) {
+                    System.out.print(scanner.next()); 
                 }
                 else {
-                    node2 = scanner.nextInt();
+                    node1 = scanner.nextInt(); //first node in the pair is node1
+                    node2 = scanner.nextInt(); //second node in the pair is node2
+                    
+                    graph.get(node1).addNeighbor(node2); //add node2 to node1's neighbor list
+                    graph.get(node2).addNeighbor(node1); //add node1 to node2's neighbor list
                 }
-                i++;
                 
-                graph.get(node1).addNeighbor(node2);
-
             }
 
             for (Integer key : graph.keySet()) {
@@ -76,16 +74,13 @@ class AdjacencyList {
         catch (FileNotFoundException err) {
             System.err.println("File not found: " + err.getMessage());
         }
-
-
+    }
+    public void dfsSearch(HashMap<Integer, Vertex> graph) { //return lists of connected components, make a new list for each component
+        
     }
 
 
-
-
-
-
-
+    
 }
 
 public class test {
