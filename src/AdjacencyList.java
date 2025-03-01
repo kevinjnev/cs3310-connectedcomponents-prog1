@@ -1,3 +1,11 @@
+/************************************************************************/
+/* Kevin Nevarez                                                        */
+/* Email: kjnevarez@cpp.edu                                             */
+/* CS 3310, Spring 2025                                                 */
+/* Programming Assignment 1                                             */
+/* AdjacencyList class: holds methods relating to the list and search   */
+/************************************************************************/
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -7,6 +15,9 @@ class AdjacencyList {
     private HashMap<Integer, Vertex> graph = new HashMap<Integer, Vertex>();
     private String lineNum;
 
+
+
+    //
     public HashMap<Integer, Vertex> returnGraph() {
         return graph;
     }
@@ -30,25 +41,38 @@ class AdjacencyList {
         return lineNum;
     }
 
-    public void createGraph() {
-        //File file = new File("D:/school/CS3310 Project 1/lib/SampleInput.txt");
+    /******************************************************************************************************/
+    /* Method: createGraph                                                                                */
+    /* Purpose: Using scanner, intake the numbers for input as nodes, add each pair of nodes as neighbors */
+    /* for each other.                                                                                    */
+    /* This creates the undirected graph as an adjacency list using a HashMap                             */
+    /* of integers that have a Vertex as their value that holds the neighbor information and visit state. */
+    /*                                                                                                    */
+    /* Returns: void, the graph is accessed through other means later                                     */
+    /******************************************************************************************************/
 
+    public void createGraph() {
         try (Scanner scanner = new Scanner(getLine())) {
             scanner.useDelimiter("\\D");
-            int sizeOfGraph = 0;
+            int sizeOfGraph = 0; //This int holds the number of vertices in the graph, which is used in addAllVertices
+                                 //to create enough Vertex classes for the whole graph.
+            
             
             sizeOfGraph = scanner.nextInt();  //takes in the first integer at the start of the line as an int into n, this will give us the size of the matrix later
             
             addAllVertices(sizeOfGraph); //I could've just put scanner.nextInt() here but I wanted to make it a bit clearer what what happening
             //
 
-            int node1 = 0;
+            //These two int nodes will hold the integer pair inputs from the input file, and each pair will become
+            //each other's neighbor in the graph. Initialized to 0 for later changing.
+            int node1 = 0; 
             int node2 = 0;
             
-            while (scanner.hasNext()) {
-                if (!scanner.hasNextInt()) {
-                    scanner.next(); 
+            while (scanner.hasNext()) { //while there is something on the line for scanner to read
+                if (!scanner.hasNextInt()) { //if there is no integer next
+                    scanner.next(); //go to the next thing for scanner to read
                 }
+
                 else {
                     node1 = scanner.nextInt(); //first node in the pair is node1
                     node2 = scanner.nextInt(); //second node in the pair is node2
@@ -60,7 +84,11 @@ class AdjacencyList {
         } 
 
     }
-    public void dfsSearch(HashMap<Integer, Vertex> graph) { //return lists of connected components, make a new list for each component
+    
+    //This DFS search method takes the graph and looks at each Vertex, if it has been visited it will not create a new connected
+    //component. If it has been visited it creates a new connected component and calls the recursiveDFS method.
+    //RecursiveDFS will search all of that connected components neighbors to map that component out.
+    public void dfsSearch(HashMap<Integer, Vertex> graph) {
         ArrayList<ArrayList<Integer>> listOfComps = new ArrayList<ArrayList<Integer>>();
         for (Integer key: graph.keySet()) {
             if (!graph.get(key).traveledTo()) {

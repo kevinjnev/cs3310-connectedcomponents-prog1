@@ -1,3 +1,12 @@
+/**************************************************************/
+/* Kevin Nevarez                                              */
+/* Email: kjnevarez@cpp.edu                                   */
+/* CS 3310, Spring 2025                                       */
+/* Programming Assignment 1                                   */
+/* Vertex class: holds information about the vertices of      */
+/* the graph like neighbors and if it was visited             */
+/**************************************************************/
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
